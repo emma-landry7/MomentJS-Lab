@@ -25,6 +25,9 @@
     <h2>Question 4</h2>
     <div><span id="earliestDate"></span> happened before <span id="latestDate"></span>.</div>
 
+    <h2>Question 5</h2>
+    <div>Current time in London: <span id="london"></span></div>
+
     <script>
         function Moment() {
             let newMoment = moment()
@@ -83,6 +86,11 @@
         }
 
         earliestDate('2012, 8, 12', '1987, 10, 22')
+
+        let londonHour = moment.utc().hour()
+        let londonMinute = moment.utc().minute()
+        let london = document.getElementById('london')
+        london.innerHTML = londonHour + ":" + londonMinute
 
     </script>
 </body>
