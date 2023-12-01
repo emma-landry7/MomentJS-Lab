@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MomentJS Lab</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</head>
+<body>
+    <h2>Current Date</h2>
+    <div id="displayMoment"></div>
+
+    <h2>My Birthdate</h2>
+    <div id="birthdate"></div>
+
+    <h2>My Age in Days</h2>
+    <div id="difference"></div>
+
+    <h2>My Age</h2>
+    <div id="age"><span id="years"></span><span id="months"></span></div>
+
+    <h2>Question 3</h2>
+    <div><span id="closestDate"></span> is closer to the current date than <span id="otherDate"></span></div>
+
+    <h2>Question 4</h2>
+    <div><span id="earliestDate"></span> happened before <span id="latestDate"></span>.</div>
+
+    <script>
+        function Moment() {
+            let newMoment = moment()
+            let eDisplayMoment = document.getElementById('displayMoment')
+            eDisplayMoment.innerHTML = newMoment
+
+            let birthdate = moment([2000, 6, 30])
+            let displayDate = document.getElementById('birthdate')
+            displayDate.innerHTML = birthdate
+
+            let duration = newMoment.diff(birthdate, 'days')
+            let displayDuration = document.getElementById('difference')
+            displayDuration.innerHTML = duration
+
+            let years = duration / 365.25
+            let display = document.getElementById('years')
+            let months = duration % 365.25 / (365.25 / 12)
+            let days = (months - Math.floor(months)) * 30
+            display.innerHTML = "I am " + Math.floor(years) + " years, " + Math.floor(months) + " months, and " + Math.floor(days) + " days old."
+        }
+
+        Moment()        
+
+        function closestDate(date1, date2) {
+            let currentDate = moment()
+            dateX = moment(date1)
+            dateY = moment(date2)
+            let diff1 = currentDate.diff(date1, 'days')
+            let diff2 = currentDate.diff(date2, 'days')
+            let displayClosestDate = document.getElementById('closestDate')
+            let displayOtherDate = document.getElementById('otherDate')
+            if (diff1 < diff2) {
+                displayClosestDate.innerHTML = dateX
+                displayOtherDate.innerHTML = dateY
+            } else {
+                displayClosestDate.innerHTML = dateY
+                displayOtherDate.innerHTML = dateX
+            }
+        }
+
+        closestDate('2015, 5, 25', '2024, 6, 11')
+
+        function earliestDate(date1, date2) {
+            dateX = moment(date1)
+            dateY = moment(date2)
+            let diff = dateX.diff(dateY, 'days')
+            let displayEarliestDate = document.getElementById('earliestDate')
+            let displayLatestDate = document.getElementById('latestDate')
+            if (diff < 0) {
+                displayEarliestDate.innerHTML = dateX
+                displayLatestDate.innerHTML = dateY
+            } else {
+                displayEarliestDate.innerHTML = dateY
+                displayLatestDate.innerHTML = dateX
+            }
+        }
+
+        earliestDate('2012, 8, 12', '1987, 10, 22')
+
+    </script>
+</body>
+</html>
